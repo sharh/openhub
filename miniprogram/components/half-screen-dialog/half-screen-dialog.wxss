@@ -1,0 +1,35 @@
+.weui-demo-dialog{
+  visibility:hidden;
+  opacity:0;
+  transition:all .3s;
+}
+.weui-half-screen-dialog{
+  transition:all .3s;
+  transform:translateY(100%);
+}
+.weui-demo-dialog_show{
+  visibility:visible;
+  opacity:1;
+}
+.weui-demo-dialog_show .weui-half-screen-dialog{
+    transform:translateY(0);
+}
+.weui-half-screen-dialog__hd {
+  height: 6em;
+}
+.weui-half-screen-dialog__title{
+  text-align: center;
+}
+.weui-half-screen-dialog__ft{
+  padding: 15px 0;
+}
+
+.weui-half-screen-dialog__bd{
+  padding-bottom: 16px;
+  flex: 1;
+}
+.weui-half-screen-dialog{
+  display: flex;
+  flex-direction: column;
+
+}

@@ -1,0 +1,17 @@
+<view class="weui-demo-dialog {{showDialog ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" data-type="mask" bindtap="closeDialog"></view>
+  <view class="weui-dialog__wrp" data-type="mask" bindtap="closeDialog">
+    <view class="weui-dialog" catchtap="stopEvent">
+      <view class="weui-dialog__hd" wx:if="{{title}}">
+        <view class="weui-dialog__title">{{title}}</view>
+      </view>
+      <view class="weui-dialog__bd">{{content}}</view>
+      <view class="weui-dialog__ft">
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closeDialog" data-type="cancel" wx:if="{{showCancel}}">
+          {{cancelText}}
+        </view>
+        <view class="weui-dialog__btn" data-type="confirm" bindtap="closeDialog">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

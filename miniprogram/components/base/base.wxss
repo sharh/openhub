@@ -1,0 +1,5 @@
+/* components/base/base.wxss */
+.base-container{
+  width: 100%;
+  display: block;
+}

@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "loading": "../../libs/weui-miniprogram/loading/loading",
+    "dialog": "../dialog/dialog",
+    "dialog-bottom": "../half-screen-dialog/half-screen-dialog"
+  }
+}
