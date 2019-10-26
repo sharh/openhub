@@ -1,0 +1,23 @@
+/* miniprogram/pages/releases/releases.wxss */
+
+.release {
+  padding: 20rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+.tag-user{
+  border-bottom: 1px solid #ebebeb;
+  padding: 20rpx;
+}
+.tag-name {
+  font-size: 70rpx;
+  font-weight: bold;
+  color: #0366d6;
+}
+
+.avatar {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}

@@ -1,0 +1,31 @@
+<base dialog="{{dialog}}">
+  <view class="repo-info">{{name}} Commits Info</view>
+  <view class="commits">
+    <view class="commit" wx:for="{{commits}}" wx:key="sha">
+      <view class="message">
+        <image class="icon" src="/images/icons/{{item.verification.verified ? 'ok' : 'error'}}.png" />
+        {{item.commit.message}}
+      </view>
+      <view class="operate-info">
+        <view class="commiter">
+          <view class="user">
+            <image class="icon" src="{{item.committer.avatar_url}}" />
+            <view class="user-name" bind:tap="goUser" data-type="committer" data-index="{{index}}">
+              {{item.committer.login}}
+            </view>
+          </view>
+          <view style="color: #999;">commited at {{item.commit.committer.date}}</view>
+        </view>
+        <view class="commiter" wx:if="{{item.author}}">
+          <view class="user">
+            <image class="icon" src="{{item.committer.avatar_url}}" />
+            <view class="user-name" bind:tap="goUser" data-type="author" data-index="{{index}}">
+              {{item.author.login}}
+            </view>
+          </view>
+          <view style="color: #999;">authored at {{item.commit.author.date}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</base>

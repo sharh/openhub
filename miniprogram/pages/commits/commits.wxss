@@ -1,0 +1,31 @@
+/* miniprogram/pages/commits/commits.wxss */
+.icon{
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+.repo-info{
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  background: #ffffff;
+}
+.commit{
+  padding: 20rpx;
+  background: #ffffff;
+  border-bottom: 1px solid #ebebeb;
+}
+.user-name{
+  color: #0366d6;
+  font-weight: bold;
+}
+.message{
+  padding: 10rpx 0;
+}
+.operate-info{
+  padding: 20rpx;
+}
+.user{
+  display: flex;
+  align-items: center;
+}

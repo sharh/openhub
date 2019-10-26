@@ -184,17 +184,15 @@ Component({
             if (Date.now() - this.lastSearch < this.data.throttle) {
                 return;
             }
-            if (typeof this.data.search !== 'function') {
-                return;
-            }
             this.lastSearch = Date.now();
-            this.data.search(e.detail.value).then(function (json) {
-                _this.setData({
-                    result: json
-                });
-            }).catch(function (err) {
-                console.log('search error', err);
-            });
+            this.triggerEvent('change', {value: e.detail.value})
+            // this.data.search(e.detail.value).then(function (json) {
+            //     _this.setData({
+            //         result: json
+            //     });
+            // }).catch(function (err) {
+            //     console.log('search error', err);
+            // });
         },
         selectResult: function selectResult(e) {
             var index = e.currentTarget.dataset.index;

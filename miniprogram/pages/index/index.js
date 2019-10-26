@@ -1,62 +1,101 @@
 //index.js
 const app = getApp()
-
+const DB = require('../../utils/db.js')
+const utils = require('../../utils/utils.js')
+const cachedData = {
+  repositories: {},
+  developers: {}
+}
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
+    repositories: [],
+    developers: [],
+    // 语言
+    lang: '',
+    dates: [ 'daily', 'weekly', 'monthly' ],
+    dateIndex: 0,
+    // 时间
+    since: 'daily',
+    // 是仓库还是开发者
+    type: 'repositories',
+
     dialog: {
-      show: true,
+      show: false,
       showCancel: false,
       maskClosable: false
-    },
-    dialogBottom: {
-      show: true,
-      title: '弹框',
-      content: 'hello'
-    },
-    logged: false,
-    takeSession: false,
-    requestResult: ''
+    }
   },
-
-  onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
+  bindPickerChange (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      dateIndex: e.detail.value,
+      since: this.data.dates[e.detail.value]
+    })
+    this.getList()
+  },
+  navigateRepo (e) {
+    let { api } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/repository/repository?api=${api}`
+    })
+  },
+  navigateUser (e) {
+    let { api } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/user/user?api=${api}`
+    })
+  },
+  changeContent (e) {
+    let type = e.currentTarget.dataset.type;
+    this.setData({
+      type
+    })
+    this.getList()
+  },
+  getList () {
+    let type = this.data.type;
+    let since = this.data.since
+    if (cachedData[type][since]) {
+      this.setData({
+        [type]: cachedData[type][since]
       })
       return
     }
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
     wx.cloud.callFunction({
       // 要调用的云函数名称
-      name: 'request',
+      name: 'trending',
       // 传递给云函数的event参数
       data: {
+        since: since,
+        type: type
       }
-    }).then(res => {
-      console.log(res)
+    }).then(({ result: { data } }) => {
+      if (data && data.length) {
+        this.setData({
+          [type]: data[0].data
+        })
+        cachedData[type][since] = data[0].data
+      }
+      wx.hideLoading()
+      console.log(data)
       // output: res.result === 3
     }).catch(err => {
       // handle error
+      wx.hideLoading()
+      this.data.dialog.show = true;
+      this.data.dialog.content = err.errMsg
+      this.setData({
+        dialog: this.data.dialog
+      })
       console.log(err)
     })
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
-      }
-    })
+  },
+  onLoad: function () {
+    this.getList()
   },
 
   onGetUserInfo: function(e) {

@@ -1,43 +1,87 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <base class="container" dialogBottom="{{dialogBottom}}" dialog="{{dialog}}">
-
-  <!-- 用户 openid -->
-  <view class="userinfo">
-    <button 
-      open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo"
-      class="userinfo-avatar"
-      style="background-image: url({{avatarUrl}})"
-    ></button>
-    <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+  <view class="tabs">
+    <view class="header">
+      <view class="tab tab-1 {{type === 'repositories' ? 'active' : ''}}" bind:tap="changeContent" data-type="repositories">
+        Repositories
+      </view>
+      <view class="tab tab-2 {{type === 'developers' ? 'active' : ''}}" bind:tap="changeContent" data-type="developers">
+        Developers
+      </view>
     </view>
-  </view>
-
-
-  <!-- 上传图片 -->
-  <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text>上传图片</text>
+    <view >
+      <picker class="filter" bindchange="bindPickerChange" value="{{dateIndex}}" range="{{dates}}">
+        <view class="picker">
+          <image src="/images/icons/filter.png" class="filter-icon" />Date Range: {{dates[dateIndex]}}
+        </view>
+      </picker>
     </view>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
+    <view class="content">
+      <!-- 仓库 -->
+      <view 
+      class="item" 
+      hidden="{{type === 'developers'}}" 
+      wx:for="{{repositories}}" 
+      wx:key="index">
+        <view class="name" data-api="{{item.apiRepo}}" bindtap = "navigateRepo">
+          <view class="title">{{item.title}}</view>
+        </view>
+        <view class="users">
+          <image 
+          class="avatar" 
+          src="{{user.avatar}}" 
+          wx:for-item="user" 
+          wx:for="{{item.users}}" 
+          data-api="{{user.apiRepo}}"
+          catchtap = "navigateUser"
+          wx:key="avatar" />
+        </view>
+        <view class="desc">{{item.desc}}</view>
+        <view class="footer">
+          <view class="property star" wx:if="{{item.language}}">
+            <view class="lang-color" style="{{item.languageColor}}"></view>
+            {{item.language}}
+          </view>
+          <view class="property star">
+            <image src="/images/icons/follow.png" class="icon" />
+            {{item.totalStar}}
+          </view>
+          <view class="property star">
+            <image src="/images/icons/fork.png" class="icon" />
+            {{item.fork}}
+          </view>
+          <view class="property star">
+            <image src="/images/icons/follow.png" class="icon" />
+            {{item.typeStar}}
+          </view>
+        </view>
+      </view>
+      <!-- 开发者 -->
+      <view 
+      class="item" 
+      hidden="{{type === 'repositories'}}" 
+      wx:for="{{developers}}" 
+      wx:key="index">
+        <view class="dev-name" data-api="{{item.apiRepo}}" bindtap = "navigateUser">
+          <image src="{{item.avatar}}" class="dev-avatar" />
+          <view class="dev-info">
+              <view class="title">{{item.name}}</view>
+              <view class="home">https://github.com/{{item.account}}</view>
+          </view>
+        </view>
+        <view class="repository" 
+        data-api="{{item.popularRepo.apiRepo}}"
+        catch:tap="navigateRepo">
+          <view >
+            <view class="hot-name">
+              <image src="/images/icons/hot.png" class="hot-icon" />
+              <text class="hot-title">{{item.popularRepo.title}}</text>
+            </view>
+          </view>
+          <view class="hot-desc">{{item.popularRepo.desc}}</view>
+        </view>
+      </view>
     </view>
-  </view>
-
-
-  <!-- 操作数据库 -->
-  <view class="uploader">
-    <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
-      <text>前端操作数据库</text>
-    </navigator>
-  </view>
-
-  <!-- 新建云函数 -->
-  <view class="uploader">
-    <navigator url="../addFunction/addFunction" open-type="navigate" class="uploader-text">
-      <text>快速新建云函数</text>
-    </navigator>
   </view>
   <view slot="dialog-bottom">和咯哦</view>
 </base>

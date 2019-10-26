@@ -1,8 +1,61 @@
 @import './libs/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 /**app.wxss**/
+page {
+  background: #f6f6f6;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
 } 
+
+.title{
+  color: #0366d6;
+  flex: 1;
+  font-size: 40rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.desc{
+  font-size: 14px;
+  line-height: 1.4;
+  color: #888;
+  margin: 10rpx 0;
+  word-break: break-all;
+}
+.item{
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  background: #fff;
+  border-radius: 10rpx;
+}
+.footer{
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  align-items: center;
+  padding: 10rpx 0;
+  color: #888;
+}
+.property{
+  display: flex;
+  align-items: center;
+}
+.lang-color{
+  display: inline-block;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+.footer .property .icon{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.loading{
+  text-align: center;
+  padding: 10rpx;
+}

@@ -1,0 +1,15 @@
+/* miniprogram/pages/filecontent/filecontent.wxss */
+.file-info{
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  border-bottom: 10rpx solid #0366d6;
+  background: #ffffff;
+  margin-bottom: 20rpx;
+}
+.content{
+  background: #ffffff;
+  padding: 20rpx;
+  overflow-x: auto;
+  margin-bottom: 20rpx;
+}

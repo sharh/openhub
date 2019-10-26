@@ -1,0 +1,25 @@
+/* miniprogram/pages/contributors/contributors.wxss */
+.avatar{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+  display: block;
+}
+.users{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20rpx;
+}
+.user{
+  width: 200rpx;
+  margin-bottom: 20rpx;
+}
+
+.name{
+  text-align: center;
+  font-weight: bold;
+  color: #0366d6;
+  word-break: break-all;
+}

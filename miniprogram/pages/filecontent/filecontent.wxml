@@ -1,0 +1,8 @@
+<!-- miniprogram/pages/filecontent/filecontent.wxml -->
+<base dialog="{{dialog}}">
+  <view class="file-info">
+    <view class="file-name">{{name}}</view>
+    <view class="file-size">{{fileSize}}</view>
+  </view>
+  <view class="content">{{content}}</view>
+</base>

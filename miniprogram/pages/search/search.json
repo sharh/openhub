@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "search-bar": "../../libs/weui-miniprogram/searchbar/searchbar"
+  },
+  "navigationBarTitleText": "Search"
+}

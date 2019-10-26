@@ -1,0 +1,15 @@
+<!-- miniprogram/pages/releases/releases.wxml -->
+<base dialog="{{dialog}}">
+  <view class="releases">
+    <view class="release" wx:for="{{releases}}" wx:key="id">
+      <view class="tag-name">{{item.tag_name}}</view>
+      <view class="tag-user" bindtap="navigateUser" data-api="{{item.author.url}}">
+        <image src="{{item.author.avatar_url}}" class="avatar" />
+        <text style="color: #0366d6">{{item.author.login}}</text> released this on {{item.published_at}} to {{item.target_commitish}} since this release
+      </view>
+      <view class="release-desc">
+        <wemark wx:if="{{item.body}}" md="{{item.body}}" link highlight type="wemark"></wemark>
+      </view>
+    </view>
+  </view>
+</base>

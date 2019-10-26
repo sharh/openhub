@@ -1,0 +1,88 @@
+/* miniprogram/pages/repository/repository.wxss */
+.repo-info{
+  padding: 20rpx;
+  background: #ffffff;
+  margin-bottom: 20rpx;
+}
+.repo-name{
+  font-size: 50rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10rpx;
+}
+.repo-user{
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  color: #24292e;
+}
+.avatar{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.footer{
+  padding: 20rpx;
+  background: #ffffff;
+}
+.markdown-content{
+  margin-top: 10rpx;
+  background: #ffffff;
+  padding: 20rpx;
+}
+.fold{
+  max-height: 400rpx;
+  overflow: hidden;
+}
+.trees,.github-properties{
+  background: #ffffff;
+  margin-top: 20rpx;
+}
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.tree-file{
+  display: flex;
+  align-items: center;
+}
+.file-name{
+  color: #0366d6;
+}
+.file-size{
+  color: #999999;
+}
+.tree{
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1px solid #ebebeb;
+  justify-content: space-between;
+}
+.back-up{
+  flex: 1;
+  color: #0366d6;
+}
+.github-properties{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  border-bottom: 10rpx solid #0366d6;
+}
+.github-properties .property{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding-right: 5rpx;
+  font-size: 30rpx;
+}
+.property:last-child{
+  border-right: 0;
+}
+.pro-icon{
+  width: 30rpx;
+  height: 30rpx;
+}

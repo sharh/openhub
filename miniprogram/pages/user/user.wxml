@@ -1,0 +1,59 @@
+<!-- miniprogram/pages/user/user.wxml -->
+<base dialog="{{dialog}}">
+  <view class="user-info">
+    <image class="user-avatar" src="{{user.avatar_url}}" />
+    <view class="user-name">
+      <view class="login">{{user.login}}</view>
+      <view class="name" wx:if="{{user.name}}">{{user.name}}</view>
+    </view>
+  </view>
+  <view class="bio desc" wx:if="{{user.bio}}">{{user.bio}}</view>
+  <view class="github-info">
+    <view class="git-item">
+      <image src="/images/icons/follower.png" class="icon" />
+      {{user.followers}}
+    </view>
+    <view class="git-item">
+      <image src="/images/icons/following.png" class="icon" />
+      {{user.following}}
+    </view>
+    <view class="git-item">
+      <image src="/images/icons/repo.png" class="icon" />
+      {{user.public_repos}}
+    </view>
+    <view class="git-item">
+      <image src="/images/icons/gists.png" class="icon" />
+      {{user.public_gists}}
+    </view>
+  </view>
+  <view class="repos">
+    <view class="item" bind:tap="goRepo" data-index="{{index}}" wx:for="{{repos}}" wx:key="index">
+      <view class="name">
+        <view class="title">{{item.full_name}}</view>
+      </view>
+      <view class="desc">{{item.description}}</view>
+      <view class="footer">
+        <view class="property star" wx:if="{{item.language}}">
+          {{item.language}}
+        </view>
+        <view class="property star">
+          <image src="/images/icons/follow.png" class="icon" />
+          {{item.stargazers_count}}
+        </view>
+        <view class="property star">
+          <image src="/images/icons/fork.png" class="icon" />
+          {{item.forks}}
+        </view>
+        <view class="property star">
+          <image src="/images/icons/watch.png" class="icon" />
+          {{item.watchers}}
+        </view>
+        <view class="property star">
+          <image src="/images/icons/issue.png" class="icon" />
+          {{item.open_issues}}
+        </view>
+      </view>
+    </view>
+    <view hidden="{{!loadingRepos}}" class="loading">加载中...</view>
+  </view>
+</base>

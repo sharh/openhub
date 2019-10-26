@@ -1,0 +1,47 @@
+<!-- miniprogram/pages/search/search.wxml -->
+<base dialog="{{dialog}}">
+  <!-- <view class="search-types">
+    <view class="type-item {{activeIndex === index ? 'active' : ''}}" wx:for="{{searchTypes}}" data-index="{{index}}" bindtap="setType" wx:key="index">
+      {{item}}
+    </view>
+  </view> -->
+  <search-bar placeholder="输入项目名搜索..." throttle="{{throttle}}" bind:change="onInput"></search-bar>
+  <view class="search-content">
+    <view class="total" wx:if="{{list.length}}">
+      共搜索到
+      <text style="color: red;">{{totalCount}}</text>
+      条记录
+    </view>
+    <view class="search-list">
+      <view class="item" bind:tap="navigateRepo" data-api="{{item.url}}" wx:for="{{list}}" wx:key="id">
+        <view class="item-header">
+          <image class="item-avatar" src="{{item.owner.avatar_url}}" lazy-load="true" />
+          <view class="item-info">{{item.full_name}}</view>
+        </view>
+        <view class="desc">{{item.description}}</view>
+        <view class="footer">
+          <view class="property star" wx:if="{{item.language}}">{{item.language}}</view>
+          <view class="property star">
+            <image src="/images/icons/follow.png" class="icon" />
+            {{item.stargazers_count}}
+          </view>
+          <view class="property star">
+            <image src="/images/icons/fork.png" class="icon" />
+            {{item.forks}}
+          </view>
+          <view class="property star">
+            <image src="/images/icons/watch.png" class="icon" />
+            {{item.watchers}}
+          </view>
+          <view class="property star">
+            <image src="/images/icons/issue.png" class="icon" />
+            {{item.open_issues_count}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view bindtap="loadMore" class="load-more" wx:if="{{!isLoading && list.length && !incomplete_results}}">
+      加载更多
+    </view>
+  </view>
+</base>

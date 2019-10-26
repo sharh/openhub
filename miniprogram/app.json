@@ -1,22 +1,47 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/search/search",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib"
+    "pages/chooseLib/chooseLib",
+    "pages/repository/repository",
+    "pages/user/user",
+    "pages/filecontent/filecontent",
+    "pages/commits/commits",
+    "pages/branches/branches",
+    "pages/releases/releases",
+    "pages/contributors/contributors"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#24292e",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "OPEN HUB"
   },
   "usingComponents": {
     "base": "./components/base/base"
+  },
+  "tabBar": {
+    "selectedColor": "#0366d6",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "/images/tabs/trending.png",
+        "selectedIconPath": "/images/tabs/trending-1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "iconPath": "/images/tabs/search.png",
+        "selectedIconPath": "/images/tabs/search-1.png",
+        "text": "搜索"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

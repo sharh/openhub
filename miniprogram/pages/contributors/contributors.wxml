@@ -1,0 +1,9 @@
+<!-- miniprogram/pages/contributors/contributors.wxml -->
+<base dialog="{{dialog}}">
+  <view class="users">
+    <view class="user" wx:for="{{contributors}}" wx:key="id" data-api="{{item.url}}" bind:tap="navigateUser">
+      <image src="{{item.avatar_url}}" class="avatar" />
+      <view class="name">{{item.login}}</view>
+    </view>
+  </view>
+</base>

@@ -1,0 +1,27 @@
+/* miniprogram/pages/branches/branches.wxss */
+.branch{
+  background: #ffffff;
+  padding: 20rpx;
+  border-bottom: 1px solid #ebebeb;
+  display: flex;
+  align-items: center;
+}
+.name{
+  flex: 1;
+}
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 15rpx;
+}
+.user{
+  display: flex;
+  align-items: center;
+}
+.user-name{
+  color: #0366d6;
+  font-weight: bold;
+}
+.commiter{
+  padding: 20rpx;
+}

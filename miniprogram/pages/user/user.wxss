@@ -1,0 +1,42 @@
+/* miniprogram/pages/user/user.wxss */
+.user-info{
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #fff;
+}
+.user-avatar{
+  width: 200rpx;
+  height: 200rpx;
+  margin-right: 50rpx;
+
+}
+.login{
+  font-size: 70rpx;
+  font-weight: bold;
+}
+.name{
+  font-size: 40rpx;
+  color: #999999;
+}
+.github-info{
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+  margin-top: 20rpx;
+  font-weight: bold;
+  background: #fff;
+  
+}
+.git-item{
+  display: flex;
+  align-items: center;
+}
+.git-item .icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.repos{
+  margin-top: 20rpx;
+}

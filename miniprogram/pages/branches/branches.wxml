@@ -1,0 +1,23 @@
+<!-- miniprogram/pages/branches/branches.wxml -->
+<base dialog="{{dialog}}">
+  <view class="branches">
+    <view wx:for="{{branches}}" bind:tap="getBranchCommit" data-index="{{index}}" wx:key="index">
+      <view class="branch" >
+        <image src="/images/icons/{{item.protected ? 'lock' : 'unlock'}}.png" class="icon" />
+        <view class="name">{{item.name}}</view>
+        <image src="/images/icons/{{item.fold ? 'down' : 'right'}}.png" class="icon" />
+      
+      </view>
+      <view class="commit-info" wx:if="{{item.fold && item.commitInfo}}">
+        <view class="commiter">
+            <view class="user">
+              <view class="user-name">
+                {{item.commitInfo.committer ? item.commitInfo.committer.login : item.commitInfo.commit.committer.name}}
+              </view>
+            </view>
+            <view style="color: #999;">lastest commited at {{item.commitInfo.commit.committer.date}}</view>
+          </view>
+      </view>
+    </view>
+  </view>
+</base>

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "wemark": "../../libs/wemark/wemark"
+  }
+}
