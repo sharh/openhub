@@ -1,6 +1,5 @@
 //index.js
 const app = getApp()
-const DB = require('../../utils/db.js')
 const utils = require('../../utils/utils.js')
 const cachedData = {
   repositories: {},
@@ -67,6 +66,9 @@ Page({
     this.getList()
   },
   checkStarred (index) {
+    if (!app.globalData.userinfo) {
+      return
+    }
     let item = this.data.repositories[ index ];
     utils.cloudAPI(`https://api.github.com/user/starred${item.repo}`, {
       method: 'get'
