@@ -1,4 +1,6 @@
-function formatDate(date, time) {
+let loginState = 0;
+
+function formatDate (date, time) {
   date = new Date(date);
   if (date.toString() === 'Invalid Date') {
     date = new Date();
@@ -17,17 +19,43 @@ function formatDate(date, time) {
   }
   return dateStr
 }
-function cloudAPI(api) {
+function setLoginState(state) {
+  loginState = state
+}
+function cloudAPI (api, options = {}) {
+  options = options || {}
+  const userinfo = wx.getStorageSync('userinfo');
+  let data = {
+    api: decodeURIComponent(api),
+    ...options
+  }
+  if (userinfo) {
+    data.headers = data.headers || {}
+    data.headers[ 'Authorization' ] = 'token ' + userinfo.token;
+  }
   return wx.cloud.callFunction({
     // 要调用的云函数名称
     name: 'api',
     // 传递给云函数的event参数
-    data: {
-      api: api
+    data: data
+  }).then(({ result }) => {
+    if (result && result.statusCode) {
+      if (result.statusCode == 401 && loginState != 1) {
+        loginState = 1;
+        wx.navigateTo({
+          url: '/pages/login/login'
+        });
+      }
+      throw result.error;
     }
+    return {result};
+  }).catch((e) => {
+    console.log(e)
+    throw e
   })
 }
 module.exports = {
   formatDate,
-  cloudAPI
+  cloudAPI,
+  setLoginState
 }

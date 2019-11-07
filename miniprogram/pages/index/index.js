@@ -33,6 +33,20 @@ Page({
     })
     this.getList()
   },
+  starred (e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.repositories[ index ];
+    utils.cloudAPI(`https://api.github.com/user/starred${item.repo}`, {
+      method: item.starred ? 'DELETE' : 'PUT'
+    }).then(({ result }) => {
+      this.setData({
+        ['repositories[' + index + '].starred']: !item.starred
+      })
+      console.log(result)
+    }).catch((e) => {
+      console.log(e)
+    })
+  },
   navigateRepo (e) {
     let { api } = e.currentTarget.dataset;
     wx.navigateTo({
@@ -52,6 +66,41 @@ Page({
     })
     this.getList()
   },
+  checkStarred (index) {
+    let item = this.data.repositories[ index ];
+    utils.cloudAPI(`https://api.github.com/user/starred${item.repo}`, {
+      method: 'get'
+    }).then(({ result }) => {
+      this.setData({
+        ['repositories[' + index + '].starred']: !item.starred
+      })
+    }).catch((e) => {
+    })
+  },
+  fork (e) {
+    let index = e.currentTarget.dataset.index;
+    let item = this.data.repositories[ index ];
+    if (app.globalData.userinfo) {
+      utils.cloudAPI(`https://api.github.com/repos${item.repo}/forks`, {
+        method: 'post'
+      }).then(({ result }) => {
+        wx.showToast({
+          title: 'fork成功！',
+          icon: 'none',
+          image: '',
+          mask: true,
+          success: ()=>{
+            wx.navigateTo({
+              url: '/pages/repository/repository?api=' + result.url
+            })
+          }
+        });
+        console.log(result)
+      }).catch((e) => {
+        console.log(e)
+      })
+    }
+  },
   getList () {
     let type = this.data.type;
     let since = this.data.since
@@ -59,6 +108,11 @@ Page({
       this.setData({
         [type]: cachedData[type][since]
       })
+      if (type === 'repositories') {
+        for (var i = 0; i < this.data.repositories.length; i++){
+          this.checkStarred(i)
+        }
+      }
       return
     }
     wx.showLoading({
@@ -78,7 +132,12 @@ Page({
         this.setData({
           [type]: data[0].data
         })
-        cachedData[type][since] = data[0].data
+        cachedData[ type ][ since ] = data[ 0 ].data
+        if (type === 'repositories') {
+          for (var i = 0; i < this.data.repositories.length; i++){
+            this.checkStarred(i)
+          }
+        }
       }
       wx.hideLoading()
       console.log(data)

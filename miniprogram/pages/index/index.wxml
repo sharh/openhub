@@ -42,11 +42,11 @@
             <view class="lang-color" style="{{item.languageColor}}"></view>
             {{item.language}}
           </view>
-          <view class="property star">
-            <image src="/images/icons/follow.png" class="icon" />
+          <view class="property star" data-index="{{index}}" bind:tap="starred">
+            <image src="/images/icons/{{item.starred ? 'follow.png' : 'follow_line.png'}}" class="icon" />
             {{item.totalStar}}
           </view>
-          <view class="property star">
+          <view class="property star" data-index="{{index}}" bind:tap="fork">
             <image src="/images/icons/fork.png" class="icon" />
             {{item.fork}}
           </view>

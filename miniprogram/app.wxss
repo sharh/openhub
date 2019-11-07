@@ -9,7 +9,9 @@ page {
   align-items: center;
   box-sizing: border-box;
 } 
-
+view,.hot-title{
+  word-break: break-all;
+}
 .title{
   color: #0366d6;
   flex: 1;
@@ -17,6 +19,7 @@ page {
   font-weight: bold;
   display: flex;
   align-items: center;
+  word-break: break-all;
 }
 .desc{
   font-size: 14px;

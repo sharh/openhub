@@ -1,0 +1,16 @@
+{
+  "name": "openhub",
+  "version": "1.0.0",
+  "description": "openhub",
+  "main": "app.js",
+  "dependencies": {
+    "highlight.js": "^9.16.1",
+    "marked": "^0.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}

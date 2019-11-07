@@ -27,5 +27,9 @@ Component({
   /**
    * 组件的方法列表
    */
-  methods: {}
+  methods: {
+    dialogClose ({detail}) {
+      this.triggerEvent('dialog-close', {type: detail.type})
+    }
+  }
 });

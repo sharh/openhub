@@ -1,0 +1,21 @@
+/* miniprogram/pages/login/login.wxss */
+.login-logo{
+  width: 300rpx;
+  height: 300rpx;
+  margin: 50rpx auto;
+}
+.form{
+  padding: 40rpx;
+}
+.item{
+  padding: 20rpx 30rpx;
+  margin-top: 50rpx;
+}
+.btn{
+  background: #24292e;
+  text-align:center;
+  color: #ffffff;
+}
+.disabled,.hover{
+  opacity: 0.6;
+}

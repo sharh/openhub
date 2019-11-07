@@ -1,4 +1,5 @@
 // miniprogram/pages/user/user.js
+const utils = require("../../utils/utils.js");
 Page({
 
   /**
@@ -8,6 +9,7 @@ Page({
     user: {},
     repos: [],
     loadingRepos: true,
+    organizations: [],
     dialog: {
       show: false,
       showCancel: false,
@@ -16,19 +18,24 @@ Page({
   },
   goRepo (e) {
     let index = e.currentTarget.dataset.index;
+    let type = e.currentTarget.dataset.type;
     wx.navigateTo({
-      url: `/pages/repository/repository?api=${this.data.repos[index].url}`
+      url: `/pages/repository/repository?api=${this.data[type][index].url}`
     });
   },
+  getOrgs(){
+    utils.cloudAPI(this.data.user.organizations_url).then(({ result }) => {
+      wx.hideLoading()
+      this.setData({
+        organizations: result
+      })
+    }).catch(err => {
+      console.log(err)
+      // handle error
+    })
+  },
   getRepos () {
-    wx.cloud.callFunction({
-      // 要调用的云函数名称
-      name: 'api',
-      // 传递给云函数的event参数
-      data: {
-        api: this.data.user.repos_url
-      }
-    }).then(({ result }) => {
+    utils.cloudAPI(this.data.user.repos_url).then(({ result }) => {
       wx.hideLoading()
       this.setData({
         loadingRepos: false,
@@ -48,19 +55,13 @@ Page({
       title: '加载中...',
       mask: true
     })
-    wx.cloud.callFunction({
-      // 要调用的云函数名称
-      name: 'api',
-      // 传递给云函数的event参数
-      data: {
-        api: this.data.api
-      }
-    }).then(({ result }) => {
+    utils.cloudAPI(this.data.api).then(({ result }) => {
       wx.hideLoading()
       this.setData({
         user: result
       })
-      this.getRepos ()
+      this.getRepos();
+      this.getOrgs();
       console.log(result)
       // output: res.result === 3
     }).catch(err => {

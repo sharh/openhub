@@ -1,0 +1,11 @@
+<!-- miniprogram/pages/login/login.wxml -->
+<base>
+  <view style="text-align: center;">
+    <image class="" src="/images/icons/login.png" class="login-logo" lazy-load="false"></image>
+  </view>
+  <form class="form">
+    <input class="item" bindinput="input" data-name="name" placeholder="请输入用户名" />
+    <input class="item" bindinput="input" data-name="password" placeholder="请输入密码" type="password" />
+    <view class="item btn {{disabled ? 'disabled' : ''}}" hover-class="hover" bind:tap="login2">登录</view>
+  </form>
+</base>

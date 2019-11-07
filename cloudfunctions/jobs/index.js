@@ -6,7 +6,7 @@ cloud.init({
 const db = cloud.database()
 const cheerio = require('cheerio')
 const moment = require('moment');
-const fs = require('fs')
+// const fs = require('fs')
 const request = require('request-promise')
 const dates = [ 'daily', 'weekly', 'monthly' ]
 // 云存储不能传转义字符，需要对转义字符再转义一遍
@@ -26,7 +26,7 @@ async function loadGitHubRepTrendingHtml (language='', since='daily') {
       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
     }
   })
-  fs.writeFileSync('html.html', body)
+  // fs.writeFileSync('html.html', body)
   const $ = cheerio.load(body)
   let articles = [];
   $('article.Box-row').each((index, el) => {
@@ -71,7 +71,7 @@ async function loadGitHubRepTrendingHtml (language='', since='daily') {
   return articles;
 }
 async function loadGitHubDevTrendingHtml (language='', since='daily') {
-  // console.log('loadGitHubDevTrendingHtml',language, since)
+  console.log('loadGitHubDevTrendingHtml',language, since)
   body = await request({
     url: `https://github.com/trending/developers/${language}?since=${since}`,
     gzip: true,
@@ -84,7 +84,7 @@ async function loadGitHubDevTrendingHtml (language='', since='daily') {
       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
     }
   })
-  fs.writeFileSync('html.html', body)
+  // fs.writeFileSync('html.html', body)
   const $ = cheerio.load(body)
   let articles = [];
   $('article.Box-row').each((index, el) => {

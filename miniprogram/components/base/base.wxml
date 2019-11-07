@@ -1,34 +1,9 @@
-<!--components/base/base.wxml-->
+<!-- components/base/base.wxml -->
 <view class="base-container">
   <slot></slot>
-  <dialog 
-  show="{{dialog.show}}" 
-  title="{{dialog.title}}"
-  maskClosable="{{dialog.maskClosable == null ? true : dialog.maskClosable}}"
-  content="{{dialog.content}}"
-  showCancel="{{dialog.showCancel == null ? true : dialog.showCancel}}"
-  cancelText="{{dialog.cancelText || '取消'}}"
-  confirmText="{{dialog.confirmText || '确定'}}">
-  </dialog>
-  <loading 
-  extClass="{{loading.extClass}}"
-  animated="{{loading.animated}}"
-  duration="{{loading.duration}}"
-  type="{{loading.type}}"
-  tips="{{loading.tips}}"
-  show="{{loading.show}}"></loading>
-  <dialog-bottom
-  wx:if="{{dialogBottom}}"
-  show="{{dialogBottom.show}}"
-  showClose="{{dialogBottom.showClose == null ? true : dialogBottom.showClose}}"
-  title="{{dialogBottom.title}}"
-  subTitle="{{dialogBottom.subTitle}}"
-  showMore="{{dialogBottom.showMore}}"
-  content="{{dialogBottom.content}}"
-  desc="{{dialogBottom.desc}}"
-  buttons="{{dialogBottom.buttons}}"
-  maskClosable="{{dialogBottom.maskClosable == null ? true : dialogBottom.maskClosable}}"
-  >
-  <slot name="dialog-bottom"></slot>
+  <dialog show="{{dialog.show}}" title="{{dialog.title}}" maskClosable="{{dialog.maskClosable == null ? true : dialog.maskClosable}}" bind:close="dialogClose" content="{{dialog.content}}" showCancel="{{dialog.showCancel == null ? true : dialog.showCancel}}" cancelText="{{dialog.cancelText || '取消'}}" confirmText="{{dialog.confirmText || '确定'}}"></dialog>
+  <loading extClass="{{loading.extClass}}" animated="{{loading.animated}}" duration="{{loading.duration}}" type="{{loading.type}}" tips="{{loading.tips}}" show="{{loading.show}}"></loading>
+  <dialog-bottom wx:if="{{dialogBottom}}" show="{{dialogBottom.show}}" showClose="{{dialogBottom.showClose == null ? true : dialogBottom.showClose}}" title="{{dialogBottom.title}}" subTitle="{{dialogBottom.subTitle}}" showMore="{{dialogBottom.showMore}}" content="{{dialogBottom.content}}" desc="{{dialogBottom.desc}}" buttons="{{dialogBottom.buttons}}" maskClosable="{{dialogBottom.maskClosable == null ? true : dialogBottom.maskClosable}}">
+    <slot name="dialog-bottom"></slot>
   </dialog-bottom>
 </view>

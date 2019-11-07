@@ -3,7 +3,7 @@
   <view class="commits">
     <view class="commit" wx:for="{{commits}}" wx:key="sha">
       <view class="message">
-        <image class="icon" src="/images/icons/{{item.verification.verified ? 'ok' : 'error'}}.png" />
+        <!-- <image class="icon" src="/images/icons/{{item.verification.verified ? 'ok' : 'error'}}.png" /> -->
         {{item.commit.message}}
       </view>
       <view class="operate-info">

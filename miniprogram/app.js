@@ -9,7 +9,7 @@ App({
         traceUser: true,
       })
     }
-
-    this.globalData = {}
+    let userinfo = wx.getStorageSync('userinfo');
+    this.globalData = {userinfo}
   }
 })

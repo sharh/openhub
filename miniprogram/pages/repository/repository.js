@@ -1,5 +1,11 @@
 // miniprogram/pages/repository/repository.js
-const utils  = require("../../utils/utils.js");
+const utils = require("../../utils/utils.js");
+const Base64 = require("../../utils/base64.js").Base64;
+const comi = require('../../components/comi/comi.js')
+const marked = require('marked')
+const app =  getApp();
+
+  
 Page({
 
   /**
@@ -7,6 +13,7 @@ Page({
    */
   data: {
     repo: {},
+    stared: false,
     markdown: null,
     fold: true,
     mdapi: null,
@@ -19,6 +26,48 @@ Page({
       show: false,
       showCancel: false,
       maskClosable: false
+    }
+  },
+  checkStared () {
+    utils.cloudAPI(`https://api.github.com/user/starred/${this.data.repo.full_name}`, {
+      method: 'get'
+    }).then(({ result }) => {
+      this.setData({stared: true})
+      console.log(result)
+    }).catch((e) => {
+      console.log(e)
+    })
+  },
+  starred () {
+    utils.cloudAPI(`https://api.github.com/user/starred/${this.data.repo.full_name}`, {
+      method: this.data.stared ? 'DELETE' : 'PUT'
+    }).then(({ result }) => {
+      this.setData({stared: !this.data.stared})
+      console.log(result)
+    }).catch((e) => {
+      console.log(e)
+    })
+  },
+  fork () {
+    if (app.globalData.userinfo) {
+      utils.cloudAPI(this.data.repo.forks_url, {
+        method: 'post'
+      }).then(({ result }) => {
+        wx.showToast({
+          title: 'fork成功！',
+          icon: 'none',
+          image: '',
+          mask: true,
+          success: ()=>{
+            wx.navigateTo({
+              url: '/pages/repository/repository?api=' + result.url
+            })
+          }
+        });
+        console.log(result)
+      }).catch((e) => {
+        console.log(e)
+      })
     }
   },
   foldIt () {
@@ -67,7 +116,7 @@ Page({
         }
       })
       for (let tree of result.tree) {
-        tree.size = this.formatSize(tree.size);
+        tree.fileSize = this.formatSize(tree.size);
       }
       this.data.shaList.push({
         sha: sha,
@@ -89,37 +138,33 @@ Page({
       url: `/pages/user/user?api=${this.data.repo.owner.url}`
     })
   },
-  getMarkDown () {
-    utils.cloudAPI(this.data.mdapi.download_url).then(({result}) => {
-      this.setData({
-        loadingMd: false,
-        markdown: result
-      })
-    }).catch((e) => {
-      this.setData({
-        loadingMd: false
-      })
+  wxParseTagATap (e) {
+    let src = e.currentTarget.dataset.src
+    this.data.dialog.show = true;
+    this.data.dialog.content = '请将内容复制在浏览器打开';
+    this.data.dialog.confirmText = '复制'
+    this.fileUrl = src;
+    this.setData({
+      dialog: this.data.dialog
     })
   },
-  getContentApi () {
+  getMarkDown () {
     this.setData({
       loadingMd: true
     })
-    // https://api.github.com/repos/JesseKPhillips/USA-Constitution/contents
-    utils.cloudAPI(`${this.data.api}/contents`).then(({ result }) => {
-      let mdapi = result[0]
-      for (let api of result) {
-        if (api.name.toLowerCase() === 'readme.md') {
-          mdapi = api;
-          break;
-        }
-      }
+    utils.cloudAPI(this.data.api + '/readme').then(({ result }) => {
+      // var html = marked(`git clone https://www.baidu.com`, { baseUrl: this.data.baseUrl });
+      var html = marked(Base64.decode(result.content), { baseUrl: this.data.baseUrl });
       this.setData({
-        baseUrl: mdapi.download_url.replace(/[^/]*$/i, ''),
-        contentsAPI: result,
-        mdapi: mdapi
+        loadingMd: false,
+        markdown: true,
+        baseUrl: result.download_url.replace(/[^/]*$/i, ''),
+        html: html
       })
-      this.getMarkDown();
+      console.log(html)
+      var that = this;
+      comi(Base64.decode(result.content), 'md',  this);
+      // WxParse.wxParse('article', 'html', html, that, 15, this.data.baseUrl);
     }).catch((e) => {
       this.setData({
         loadingMd: false
@@ -142,10 +187,32 @@ Page({
     }
     return result
   },
+  copyFile () {
+    if (this.fileUrl) {
+      wx.setClipboardData({
+        data: this.fileUrl
+      })
+      this.fileUrl = null;
+    }
+    this.data.dialog.show = false;
+    this.setData({
+      dialog: this.data.dialog
+    })
+  },
   viewFile (e) {
     let index = e.currentTarget.dataset.index;
     let file = this.data.tree.tree[ index ];
     if (file.type === 'blob') {
+      if (file.size > 1024 * 1024) {
+        this.data.dialog.show = true;
+        this.data.dialog.content = '当前文件内容过大，请将内容复制在浏览器打开';
+        this.data.dialog.confirmText = '复制'
+        this.fileUrl = file.url;
+        this.setData({
+          dialog: this.data.dialog
+        })
+        return
+      }
       wx.navigateTo({
         url: `/pages/filecontent/filecontent?api=${file.url}&name=${file.path}&size=${file.size}`
       })
@@ -171,10 +238,10 @@ Page({
       this.setData({
         repo: this.formatNum(result)
       })
+      this.checkStared();
       wx.setNavigationBarTitle({
         title: result.name
       });
-      this.getContentApi();
       this.getBranchInfo(result.default_branch)
       console.log(result)
       // output: res.result === 3
@@ -197,7 +264,7 @@ Page({
       api: options.api
     })
     this.getRepo()
-    this.getContentApi();
+    this.getMarkDown();
   },
 
   /**

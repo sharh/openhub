@@ -10,7 +10,9 @@
         <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closeDialog" data-type="cancel" wx:if="{{showCancel}}">
           {{cancelText}}
         </view>
-        <view class="weui-dialog__btn" data-type="confirm" bindtap="closeDialog">确定</view>
+        <view class="weui-dialog__btn" data-type="confirm" bindtap="closeDialog">
+          {{confirmText}}
+        </view>
       </view>
     </view>
   </view>

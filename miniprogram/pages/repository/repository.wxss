@@ -1,4 +1,6 @@
 /* miniprogram/pages/repository/repository.wxss */
+/* @import "/libs/wxParse/wxParse.wxss"; */
+@import "/components/comi/comi.wxss";
 .repo-info{
   padding: 20rpx;
   background: #ffffff;
@@ -68,17 +70,28 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 20rpx;
-  border-bottom: 10rpx solid #0366d6;
 }
 .github-properties .property{
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding-right: 5rpx;
-  font-size: 30rpx;
+  padding: 20rpx 0;
+  font-size: 25rpx;
 }
+.commits{
+  border-bottom: 10rpx solid #0366d6;
+}
+.branches{
+  border-bottom: 10rpx solid #03c2db;
+}
+.releases{
+  border-bottom: 10rpx solid #f55205;
+}
+.contributors{
+  border-bottom: 10rpx solid #98e404;
+}
+
 .property:last-child{
   border-right: 0;
 }
