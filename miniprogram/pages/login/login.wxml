@@ -6,6 +6,6 @@
   <form class="form">
     <input class="item" bindinput="input" data-name="name" placeholder="请输入用户名" />
     <input class="item" bindinput="input" data-name="password" placeholder="请输入密码" type="password" />
-    <view class="item btn {{disabled ? 'disabled' : ''}}" hover-class="hover" bind:tap="login2">登录</view>
+    <view class="item btn {{disabled ? 'disabled' : ''}}" hover-class="hover" bind:tap="login">登录</view>
   </form>
 </base>

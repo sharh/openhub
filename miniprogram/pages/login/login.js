@@ -21,7 +21,7 @@ Page({
       disabled: !this.data.name || !this.data.password
     })
   },
-  login () {
+  login2 () {
     if (this.data.disabled) {
       return
     }
@@ -49,7 +49,7 @@ Page({
       console.log(e)
     })
   },
-  login2 () {
+  login () {
     if (this.data.disabled) {
       return
     }
@@ -68,10 +68,10 @@ Page({
     }).then(({ result }) => {
       console.log(result)
       wx.setStorageSync('userinfo', result);
-      wx.setStorageSync('login', {
-        username: this.data.name,
-        password: this.data.password
-      });
+      // wx.setStorageSync('login', {
+      //   username: this.data.name,
+      //   password: this.data.password
+      // });
       wx.navigateBack({
         delta: 1
       });
