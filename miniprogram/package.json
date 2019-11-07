@@ -4,7 +4,6 @@
   "description": "openhub",
   "main": "app.js",
   "dependencies": {
-    "highlight.js": "^9.16.1",
     "marked": "^0.7.0"
   },
   "devDependencies": {},

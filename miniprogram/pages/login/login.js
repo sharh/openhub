@@ -21,6 +21,37 @@ Page({
       disabled: !this.data.name || !this.data.password
     })
   },
+  deleteAuth (authorization_id) {
+    return utils.cloudAPI(`https://api.github.com/authorizations/${authorization_id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'basic '+Base64.encode(this.data.name + ':'+this.data.password)
+      }
+    }) 
+  },
+  resetToken () {
+    return utils.cloudAPI(`https://api.github.com/applications/${config.client_id}/token`, {
+      method: 'POST',
+      data: {
+        client_secret: config.client_secret,
+        "scopes": [
+          "public_repo"
+        ],
+        note: 'OpenHub'
+      },
+      headers: {
+        'Authorization': 'basic '+Base64.encode(config.client_id + ':'+ config.client_secret)
+      }
+    })
+  },
+  loginByBasic () {
+    return utils.cloudAPI(`https://api.github.com/user`, {
+      method: 'get',
+      headers: {
+        'Authorization': 'basic '+Base64.encode(this.data.name + ':'+this.data.password)
+      }
+    })
+  },
   login2 () {
     if (this.data.disabled) {
       return
@@ -53,8 +84,12 @@ Page({
     if (this.data.disabled) {
       return
     }
+    wx.showLoading({
+      title: '登录中...',
+      mask: true
+    });
     utils.cloudAPI(`https://api.github.com/authorizations/clients/${config.client_id}`, {
-      method: 'put',
+      method: 'PUT',
       data: {
         client_secret: config.client_secret,
         "scopes": [
@@ -67,15 +102,51 @@ Page({
       }
     }).then(({ result }) => {
       console.log(result)
-      wx.setStorageSync('userinfo', result);
-      // wx.setStorageSync('login', {
-      //   username: this.data.name,
-      //   password: this.data.password
-      // });
-      wx.navigateBack({
-        delta: 1
-      });
+      if (!result.token) {
+        if (!this.retried) {
+          // 删除，不然获取不到token
+          this.deleteAuth(result.id).then(() => {
+            this.retried = true;
+            this.login();
+          }).catch((e) => {
+            wx.showToast({
+              title: '登录失败，请检查账号密码是否正确！',
+              icon: 'none',
+              duration: 1500,
+              mask: true,
+            });
+            wx.hideLoading()
+            console.log(e)
+          })
+        } else {
+          this.loginByBasic().then(() => {
+            wx.hideLoading()
+            result.token_type = 'basic';
+            result.token = Base64.encode(this.data.name + ':'+this.data.password)
+            wx.setStorageSync('userinfo', result);
+            wx.navigateBack({
+              delta: 1
+            });
+          }).catch((e) => {
+            wx.showToast({
+              title: '登录失败，请检查账号密码是否正确！',
+              icon: 'none',
+              duration: 1500,
+              mask: true,
+            });
+            wx.hideLoading()
+            console.log(e)
+          })
+        }
+      } else {
+        wx.hideLoading()
+        wx.setStorageSync('userinfo', result);
+        wx.navigateBack({
+          delta: 1
+        });
+      }
     }).catch((e) => {
+      this.retried = false;
       wx.showToast({
         title: '登录失败，请检查账号密码是否正确！',
         icon: 'none',
@@ -83,6 +154,7 @@ Page({
         mask: true,
       });
       console.log(e)
+      wx.hideLoading()
     })
   },
   /**
@@ -117,7 +189,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    utils.setLoginState(0)
   },
 
   /**

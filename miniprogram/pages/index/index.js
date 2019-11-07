@@ -66,7 +66,7 @@ Page({
     this.getList()
   },
   checkStarred (index) {
-    if (!app.globalData.userinfo) {
+    if (!app.globalData.userinfo || !app.globalData.userinfo.token) {
       return
     }
     let item = this.data.repositories[ index ];
@@ -82,7 +82,7 @@ Page({
   fork (e) {
     let index = e.currentTarget.dataset.index;
     let item = this.data.repositories[ index ];
-    if (app.globalData.userinfo) {
+    if (app.globalData.userinfo && app.globalData.userinfo.token) {
       utils.cloudAPI(`https://api.github.com/repos${item.repo}/forks`, {
         method: 'post'
       }).then(({ result }) => {

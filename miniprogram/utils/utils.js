@@ -29,9 +29,9 @@ function cloudAPI (api, options = {}) {
     api: decodeURIComponent(api),
     ...options
   }
-  if (userinfo) {
+  if (userinfo && userinfo.token) {
     data.headers = data.headers || {}
-    data.headers[ 'Authorization' ] = 'token ' + userinfo.token;
+    data.headers[ 'Authorization' ] = `${userinfo.token_type || 'token'} ` + userinfo.token;
   }
   return wx.cloud.callFunction({
     // 要调用的云函数名称
