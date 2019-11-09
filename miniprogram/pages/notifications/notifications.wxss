@@ -1,0 +1,32 @@
+/* miniprogram/pages/notifications/notifications.wxss */
+.activities{
+  margin-top: 20rpx;
+}
+
+.act-title {
+  padding: 20rpx;
+  background: #24292e;
+  color: #fff;
+}
+
+.noti-item {
+  background: #ffffff;
+  margin-bottom: 20rpx;
+}
+
+.noti-title {
+  padding: 20rpx;
+  border-bottom: 1px solid #ebebeb;
+  font-weight: bold;
+}
+
+.noti-content {
+  padding: 20rpx;
+  color: #0366d6;
+}
+
+.noti-time {
+  color: #999999;
+  font-size: 30rpx;
+  padding: 20rpx;
+}

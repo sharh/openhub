@@ -1,0 +1,39 @@
+<!-- miniprogram/pages/issue/issue.wxml -->
+<base>
+  <view class="issue-title">{{issue.title}}</view>
+  <view class="issue" wx:if="{{issue}}">
+    <view class="user" bind:tap="goUser" data-api="{{issue.user.url}}">
+      <image src="{{issue.user.avatar_url}}" class="avatar" />
+      {{issue.user.login}}
+    </view>
+    <view class="info">
+      <view class="state">{{issue.state}}</view>
+      <view class="number">#{{issue.number}}</view>
+    </view>
+    <view class="info">
+      created at {{issue.created_at}}, updated at {{issue.updated_at}} · {{issue.comments}} comments
+    </view>
+    <view class="info label-info" wx:if="{{issue.labels}}">
+      <view style="background: #{{item.color}}" class="label" wx:for="{{issue.labels}}" wx:key="id">{{item.name}}</view>
+    </view>
+  </view>
+  <view class="content">
+    <comi content="{{issue.body}}"></comi>
+  </view>
+  <view class="comments" wx:if="{{comments}}">
+    <view class="comment" wx:for="{{comments}}" wx:key="id">
+      <view class="user" bind:tap="goUser" data-api="{{item.user.url}}">
+        <image src="{{item.user.avatar_url}}" class="avatar" />
+        {{item.user.login}}
+      </view>
+      <view class="info comment-info">
+        <view>commented on {{item.created_at}}</view>
+        <view>{{item.author_association}}</view>
+      </view>
+      <view class="content">
+        <comi content="{{item.body}}"></comi>
+      </view>
+    </view>
+  </view>
+  <view class="loading" wx:if="{{loadingComments}}">加载中...</view>
+</base>

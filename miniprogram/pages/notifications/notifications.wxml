@@ -1,0 +1,13 @@
+<!--miniprogram/pages/notifications/notifications.wxml-->
+<base>
+  <view class="activities">
+    <view class="notifications">
+      <view class="noti-item" wx:for="{{notifications}}" wx:key="id">
+        <view class="noti-title" data-api="{{item.repository.url}}" bind:tap="viewRepo">{{item.repository.full_name}}</view>
+        <view class="noti-content" bind:tap="viewIssue" data-api="{{item.subject.url}}">{{item.subject.title}}</view>
+        <view class="noti-time">{{item.updated_at}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="loading {{loading === 'success' ? 'no-padding' : ''}}" bind:tap="reload">{{loading === 'loading' ? '加载中...' : loading === 'fail' ? '加载失败, 点击重试' : loading === 'success' ? notifications.length ? '' : '暂无数据...' : '请先登录'}}</view>
+</base>

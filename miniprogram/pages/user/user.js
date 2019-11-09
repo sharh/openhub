@@ -35,11 +35,23 @@ Page({
     })
   },
   getRepos () {
-    utils.cloudAPI(this.data.user.repos_url).then(({ result }) => {
+    this.setData({
+      loadingRepos: true
+    })
+    utils.cloudAPI(this.data.user.repos_url, {
+      qs: {
+        page: this.page
+      }
+    }).then(({ result }) => {
       wx.hideLoading()
+      if (result.length) {
+        this.page++
+      } else {
+        this.noMore = true
+      }
       this.setData({
         loadingRepos: false,
-        repos: result
+        repos: this.data.repos.concat(result)
       })
       // output: res.result === 3
     }).catch(err => {
@@ -83,6 +95,7 @@ Page({
     this.setData({
       api: options.api
     })
+    this.page = 1;
     this.getUser();
   },
 
@@ -125,7 +138,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.loadingRepos || this.noMore) {
+      return
+    }
+    this.getRepos();
   },
 
   /**

@@ -1,0 +1,31 @@
+<!--miniprogram/pages/issues/issues.wxml-->
+<base>
+  <view class="activities">
+    <view class="notifications">
+      <view class="noti-item" wx:for="{{issues}}" wx:key="id">
+        <view class="noti-content" bind:tap="viewIssue" data-api="{{item.url}}">{{item.title}}<text style="color: #999999; font-size: 30rpx;margin-left: 10rpx">#{{item.number}}</text></view>
+        <view class="info label-info" wx:if="{{item.labels}}" >
+          <view style="background: #{{label.color}}" class="label" wx:for="{{item.labels}}" wx:for-item="label" wx:key="id">{{label.name}}</view>
+        </view>
+        <view class="noti-time">
+          <view class="user" bind:tap="goUser" data-api="{{item.user.url}}">
+            <image src="{{item.user.avatar_url}}" class="avatar" />
+            <view style="flex: 1">
+              <view >
+                {{item.user.login}}
+              </view>
+              <view style="color: #999999;font-size: 22rpx;">
+                update at {{item.updated_at}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="content {{item.fold ? 'fold':''}}">
+          <comi content="{{item.body}}"/>
+        </view>
+        <view style="text-align: center;padding: 10rpx;" wx:if="{{item.body}}" data-index="{{index}}" bind:tap="foldItem">{{item.fold ? '收起' : '展开'}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="loading" wx:if="{{loading}}">加载中...</view>
+</base>

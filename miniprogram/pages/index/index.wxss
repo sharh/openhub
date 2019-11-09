@@ -17,6 +17,7 @@ page {
   padding: 10rpx 20rpx;
   background: #fff;
   border-bottom: 1px solid #f6f6f6;
+  height: 60rpx;
 
 }
 .header{
@@ -24,6 +25,18 @@ page {
   padding: 20rpx;
   align-items: center;
   justify-content: center;
+  height: 100rpx;
+}
+.fixed{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: #f6f6f6;
+}
+.tabs{
+  padding-top: 220rpx;
 }
 .tab{
   flex: 1;
@@ -52,6 +65,7 @@ page {
   width: 60rpx;
   height: 60rpx;
   margin-left: 10rpx;
+  background: #999999;
 }
 .name{
   display: flex;

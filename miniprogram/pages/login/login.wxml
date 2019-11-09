@@ -3,9 +3,20 @@
   <view style="text-align: center;">
     <image class="" src="/images/icons/login.png" class="login-logo" lazy-load="false"></image>
   </view>
+  <view class="scopes">
+    <view class="scope-name" bind:tap="openScope"><icon type="info" size="15" style="margin-right: 5rpx"/>scopes: {{selectScopes}}</view>
+    <checkbox-group bindchange="scopeSelect" class="scope-group" hidden="{{!open}}">
+      <label class="label" wx:for="{{scopes}}" wx:key="index">
+        <checkbox value="{{item.name}}" disabled="{{item.disabled}}" checked="{{item.checked}}" />
+        {{item.name}}
+      </label>
+    </checkbox-group>
+  </view>
   <form class="form">
     <input class="item" bindinput="input" data-name="name" placeholder="请输入用户名" />
     <input class="item" bindinput="input" data-name="password" placeholder="请输入密码" type="password" />
-    <view class="item btn {{disabled ? 'disabled' : ''}}" hover-class="hover" bind:tap="login">登录</view>
+    <view class="item btn {{disabled ? 'disabled' : ''}}" hover-class="hover" bind:tap="login">
+      登录
+    </view>
   </form>
 </base>

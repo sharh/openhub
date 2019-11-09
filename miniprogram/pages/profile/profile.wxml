@@ -1,0 +1,122 @@
+<!--miniprogram/pages/profile/profile.wxml-->
+<base>
+  <view class="header">
+    <image src="{{user.avatar_url || avatar_url}}" mode="widthFix" class="avatar-bg" />
+    <view class="user-name">
+      <image class="avatar" src="{{user.avatar_url || avatar_url}}" />
+      <view class="name" wx:if="{{user}}">{{user.login}}</view>
+      <view class="name" bindtap="reload" wx:if="{{!user}}">登录</view>
+    </view>
+    <view class="profile-footer">
+      <view class="bio" wx:if="{{user.bio}}">{{user.bio}}</view>
+      <view class="footer-items">
+        <view class="footer-item" wx:if="{{user.blog}}">
+          <image class="icon" src="/images/icons/blog.png"/>
+          <view class="value">{{user.blog}}</view>
+        </view>
+        <view class="footer-item" wx:if="{{user.email}}">
+          <image class="icon" src="/images/icons/email.png"/>
+          <view class="value">{{user.email}}</view>
+        </view>
+        <view class="footer-item" wx:if="{{user.company}}">
+          <image class="icon" src="/images/icons/company.png"/>
+          <view class="value">{{user.company}}</view>
+        </view>
+        <view class="footer-item" wx:if="{{user.location}}">
+          <image class="icon" src="/images/icons/location.png"/>
+          <view class="value">{{user.location}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="activity {{open ? 'open' : ''}}" wx:if="{{user}}">
+      <image src="/images/icons/{{open ? 'up' : 'activity'}}.png" class="act-icon" bind:tap="actClick" data-type="activity" />
+      <image src="/images/icons/event.png" class="act-icon" bind:tap="actClick" data-type="events" wx:if="{{open}}" />
+      <!-- <image src="/images/icons/feed.png" class="act-icon" bind:tap="actClick" data-type="feeds" wx:if="{{open}}" /> -->
+      <image src="/images/icons/notifications.png" class="act-icon" bind:tap="actClick" data-type="notifications" wx:if="{{open}}" />
+      <!-- <image src="/images/icons/star.png" class="act-icon" bind:tap="actClick" data-type="starring" wx:if="{{open}}" /> -->
+      <image src="/images/icons/watching.png" class="act-icon" bind:tap="actClick" data-type="watching" wx:if="{{open}}" />
+    </view>
+  </view>
+  <view class="profile" wx:if="{{user}}">
+    <view class="pro-item" data-type="followers_url" bind:tap="itemClick">
+      <image class="icon" src="/images/icons/follower.png"/>
+      <view class="value">{{user.followers}}</view>
+    </view>
+    <view class="pro-item" data-type="following_url" bind:tap="itemClick">
+      <image class="icon" src="/images/icons/following.png"/>
+      <view class="value">{{user.following}}</view>
+    </view>
+    <view class="pro-item" data-type="repos_url" bind:tap="itemClick">
+      <image class="icon" src="/images/icons/repo.png"/>
+      <view class="value">{{user.public_repos}}</view>
+    </view>
+    <view class="pro-item" data-type="gists_url" bind:tap="itemClick">
+      <image class="icon" src="/images/icons/gists.png"/>
+      <view class="value">{{user.public_gists}}</view>
+    </view>
+  </view>
+  <view class="github">
+    <view class="git-item" wx:if="{{starred.length}}">
+      <view class="git-cell" data-api="{{'https://api.github.com/users/'+user.login+'/starred'}}" bind:tap="viewRepos">
+        <image class="git-icon" src="/images/icons/collect2.png" />
+        <view class="git-name">Starred 5 Lastest Repos</view>
+        <image class="git-icon git-more" src="/images/icons/right.png" />
+      </view>
+      <view class="git-item-content">
+        <view class="content-item" data-api="{{item.url}}" bind:tap="viewRepo" wx:for="{{starred}}" wx:key="id">
+          <view class="title">{{item.full_name}}</view>
+          <view class="desc">{{item.description}}</view>
+          <view class="footer">
+            <view class="property star" wx:if="{{item.language}}">
+              {{item.language}}
+            </view>
+            <view class="property star">
+              <image src="/images/icons/follow.png" class="icon" />
+              {{item.stargazers_count}}
+            </view>
+            <view class="property star">
+              <image src="/images/icons/fork.png" class="icon" />
+              {{item.forks}}
+            </view>
+            <view class="property star">
+              <image src="/images/icons/watch.png" class="icon" />
+              {{item.watchers}}
+            </view>
+            <view class="property star">
+              <image src="/images/icons/issue.png" class="icon" />
+              {{item.open_issues}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="git-item" wx:if="{{organizations.length}}">
+      <view class="git-cell">
+        <image class="git-icon" src="/images/icons/org.png" />
+        <view class="git-name">Organizations</view>
+        <!-- <image class="git-icon git-more" src="/images/icons/right.png" /> -->
+      </view>
+      <view class="org-list">
+        <view class="org-repo" data-type="organizations" data-index="{{index}}" wx:for="{{organizations}}" wx:key="index">
+          <image src="{{item.avatar_url}}" class="org-avatar" />
+          <view class="org-name">{{item.login}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="activities">
+    <view class="act-title" wx:if="{{user}}">Lastest 10 notifications</view>
+    <view class="loading {{loading === 'success' ? 'no-padding' : ''}}" bind:tap="reload">{{loading === 'loading' ? '加载中...' : loading === 'fail' ? '加载失败, 点击重试' : loading === 'success' ? notifications.length ? '' : '暂无数据...' : '请先登录'}}</view>
+    <view class="notifications">
+      <view class="noti-item" wx:for="{{notifications}}" wx:key="id">
+        <view class="noti-title" data-api="{{item.repository.url}}" bind:tap="viewRepo">{{item.repository.full_name}}</view>
+        <view class="noti-content" bind:tap="viewIssue" data-api="{{item.subject.url}}">{{item.subject.title}}</view>
+        <view class="noti-time">{{item.updated_at}}</view>
+      </view>
+    </view>
+    <!-- <view class="activity">
+      name
+      <image src="/images/icons/right.png" class="icon icon-view" />
+    </view> -->
+  </view>
+</base>

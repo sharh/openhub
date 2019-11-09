@@ -1,6 +1,6 @@
 /* miniprogram/pages/repository/repository.wxss */
 /* @import "/libs/wxParse/wxParse.wxss"; */
-@import "/components/comi/comi.wxss";
+
 .repo-info{
   padding: 20rpx;
   background: #ffffff;
@@ -16,12 +16,13 @@
   margin-top: 10rpx;
   display: flex;
   align-items: center;
-  color: #24292e;
+  color: #0366d6;
 }
 .avatar{
   width: 40rpx;
   height: 40rpx;
   margin-right: 10rpx;
+  background: #999999;
 }
 .footer{
   padding: 20rpx;
@@ -98,4 +99,10 @@
 .pro-icon{
   width: 30rpx;
   height: 30rpx;
+}
+.license{
+  justify-content: flex-end;
+  font-size: 28rpx;
+  color: #999999;
+  margin: 15rpx 0;
 }

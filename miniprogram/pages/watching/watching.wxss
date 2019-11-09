@@ -1,0 +1,59 @@
+/* miniprogram/pages/issues/issues.wxss */
+
+.noti-item {
+  background: #ffffff;
+  margin-bottom: 20rpx;
+}
+
+.noti-content {
+  padding: 20rpx;
+  color: #0366d6;
+  border-bottom: 1px solid #ebebeb;
+  font-weight: bold;
+}
+
+.noti-time {
+  color: #999999;
+  font-size: 30rpx;
+  padding: 20rpx;
+  border-top: 1px solid #ebebeb;
+}
+.content{
+  padding: 20rpx;
+  color: #999999;
+}
+
+.info{
+  padding: 20rpx 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #999999;
+  font-size: 30rpx;
+  word-break: break-all;
+}
+.label-info{
+  padding: 0;
+}
+
+.label{
+  color: #fff;
+  margin: 5rpx;
+  border-radius: 5rpx;
+  padding: 0 10rpx;
+
+}
+.avatar{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  background: #999999;
+}
+.user{
+  color:#0366d6;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin: 0 10rpx;
+}

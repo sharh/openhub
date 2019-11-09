@@ -4,6 +4,10 @@
   <block wx:if="{{repo}}">
     <view class="repo-info">
       <view class="repo-name">{{repo.name}}</view>
+      <view class="property license" wx:if="{{repo.license}}">
+        <image src="/images/icons/license.png" class="icon" />
+        {{repo.license.name}}
+      </view>
       <view class="repo-desc desc">{{repo.description || ''}}</view>
       <view class="repo-user" bind:tap="goUser">
         <image src="{{repo.owner.avatar_url}}" class="avatar" />
@@ -12,12 +16,8 @@
     </view>
     <view class="footer">
       <view class="property star" wx:if="{{repo.language}}">{{repo.language}}</view>
-      <view class="property star" wx:if="{{repo.license}}">
-        <image src="/images/icons/license.png" class="icon" />
-        {{repo.license.name}}
-      </view>
       <view class="property star" bind:tap="starred">
-        <image src="/images/icons/{{!stared ?'follow_line.png' : 'follow.png'}}" class="icon" />
+        <image src="/images/icons/{{!stared ?'collect.png' : 'follow.png'}}" class="icon" />
         {{repo.stargazers_count}}
       </view>
       <view class="property star" bind:tap="fork">
@@ -28,15 +28,13 @@
         <image src="/images/icons/watch.png" class="icon" />
         {{repo.watchers}}
       </view> -->
-      <view class="property star">
+      <view class="property star" bind:tap="goIssue">
         <image src="/images/icons/issue.png" class="icon" />
         {{repo.open_issues}}
       </view>
     </view>
     <view class="markdown-content {{fold ? 'fold' : ''}}">
-        <include src="/components/comi/comi.wxml" />
-      <!-- <import src="/components/comi/comi.wxml"/>
-      <template is="comi" data="{{wxParseData:article.nodes}}"/> -->
+      <comi content="{{md}}"/>
       <view class="loading" wx:if="{{loadingMd}}">加载中...</view>
     </view>
     <view class="loading" style="background: #ffffff;margin-bottom: 40rpx;border-top: 5rpx solid #0366d6;" wx:if="{{markdown && fold}}" bindtap="foldIt">展开</view>

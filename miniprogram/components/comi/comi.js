@@ -1,7 +1,33 @@
 var WxParse = require('./wxParse.js');
 
-module.exports = function comi(md, type='html', scope) {
-
-  WxParse.wxParse('article', type, md, scope, 5);
-
-}
+Component ({
+  name: 'dialog',
+  options: {
+    addGlobalClass: true
+  },
+  properties: {
+    content: {
+      type: String,
+      value: '',
+      observer: function observer (newValue) {
+        if (newValue) {
+          this.init()
+        }
+      }
+    },
+    type: {
+      type: String,
+      value: 'md',
+    }
+  },
+  lifetimes: {
+    attached: function attached() {
+      this.init()
+    }
+  },
+  methods: {
+    init: function() {
+      WxParse.wxParse('article', this.data.type, this.data.content, this, 5);
+    }
+  }
+});

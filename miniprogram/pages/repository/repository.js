@@ -1,8 +1,7 @@
 // miniprogram/pages/repository/repository.js
 const utils = require("../../utils/utils.js");
 const Base64 = require("../../utils/base64.js").Base64;
-const comi = require('../../components/comi/comi.js')
-const marked = require('marked')
+// const marked = require('marked')
 const app =  getApp();
 
   
@@ -49,23 +48,44 @@ Page({
     })
   },
   fork () {
+    if (this.forking) {
+      wx.showToast({
+        title: 'forking...',
+        icon: 'none',
+        mask: true
+      })
+      return
+    }
+    this.forking = true
     if (app.globalData.userinfo) {
+      wx.showLoading({
+        title: 'forking...',
+        mask: true
+      })
       utils.cloudAPI(this.data.repo.forks_url, {
         method: 'post'
       }).then(({ result }) => {
+        wx.hideLoading()
+        this.forking = false
         wx.showToast({
           title: 'fork成功！',
           icon: 'none',
-          image: '',
-          mask: true,
-          success: ()=>{
-            wx.navigateTo({
-              url: '/pages/repository/repository?api=' + result.url
-            })
-          }
-        });
+          mask: true
+        })
+        setTimeout(() => {
+          wx.navigateTo({
+            url: '/pages/repository/repository?api=' + result.url
+          })
+        }, 1500);
         console.log(result)
       }).catch((e) => {
+        wx.hideLoading()
+        this.forking = false
+        wx.showToast({
+          title: e.message || e.errMsg || '网络异常！',
+          icon: 'none',
+          mask: true
+        })
         console.log(e)
       })
     }
@@ -130,6 +150,15 @@ Page({
       return result;
     })
   },
+  goIssue () {
+    if (!this.data.repo) {
+      return;
+    }
+    let api = this.data.repo.issues_url.replace(/{[^{}]*}/gim, '')
+    wx.navigateTo({
+      url: `/pages/issues/issues?api=${api}`
+    })
+  },
   goUser () {
     if (!this.data.repo.owner) {
       return;
@@ -154,17 +183,13 @@ Page({
     })
     utils.cloudAPI(this.data.api + '/readme').then(({ result }) => {
       // var html = marked(`git clone https://www.baidu.com`, { baseUrl: this.data.baseUrl });
-      var html = marked(Base64.decode(result.content), { baseUrl: this.data.baseUrl });
+      // var html = marked(Base64.decode(result.content), { baseUrl: this.data.baseUrl });
       this.setData({
         loadingMd: false,
         markdown: true,
-        baseUrl: result.download_url.replace(/[^/]*$/i, ''),
-        html: html
+        md: Base64.decode(result.content),
+        baseUrl: result.download_url.replace(/[^/]*$/i, '')
       })
-      console.log(html)
-      var that = this;
-      comi(Base64.decode(result.content), 'md',  this);
-      // WxParse.wxParse('article', 'html', html, that, 15, this.data.baseUrl);
     }).catch((e) => {
       this.setData({
         loadingMd: false

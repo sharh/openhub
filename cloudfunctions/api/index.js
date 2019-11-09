@@ -1,10 +1,11 @@
 const request = require('request-promise')
 // 云函数入口函数
 exports.main = async (event, context) => {
-  let { api, method, data, auth, headers = {} } = event;
+  let { api, method, data, auth, qs = {}, headers = {} } = event;
   let params = {
     json: true,
     gzip: true,
+    qs,
     headers: {
       ...headers,
       "Accept": "application/vnd.github.mercy-preview+json",

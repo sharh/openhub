@@ -1,0 +1,49 @@
+<!--miniprogram/pages/events/events.wxml-->
+<base>
+  <view class="activities">
+    <view class="notifications">
+      <view class="noti-item" wx:for="{{data}}" wx:key="id">
+        <view class="noti-title" data-api="{{item.repo.url}}" bind:tap="viewRepo">{{item.repo.name}}</view>
+        <view class="noti-content">{{item.type}}</view>
+        <view class="" wx:if="{{item.type === 'PushEvent'}}">
+          <view class="commit" wx:for="{{item.payload.commits}}" wx:for-item="commit" wx:key="sha" wx:if="{{commit.message}}">
+            <comi content="{{commit.message}}" />
+          </view>
+        </view>
+        <view class="" wx:if="{{item.type === 'PullRequestEvent'}}">
+          <view class="pull-title">{{item.payload.pull_request.title}}</view>
+          <view class="ref">
+            <image src="/images/icons/branch2.png" class="icon" />
+            {{item.payload.pull_request.base.ref}} 
+            <image src="/images/icons/arrow-right.png" class="icon" />
+            <image src="/images/icons/branch2.png" class="icon" />
+            {{item.payload.pull_request.base.ref}} 
+            <text style="background: #24292e;padding: 5rpx 10rpx;border-radius: 10rpx;color: #ffffff">{{item.payload.pull_request.state}}</text>
+          </view>
+          <view class="change-info">
+            <image src="/images/icons/edit.png" class="icon" />
+            {{item.payload.pull_request.changed_files}} 
+            <image src="/images/icons/add.png" class="icon" />
+            {{item.payload.pull_request.additions}} 
+            <image src="/images/icons/delete.png" class="icon" />
+            {{item.payload.pull_request.deletions}} 
+            <image src="/images/icons/commit.png" class="icon" />
+            {{item.payload.pull_request.commits}} 
+          </view>
+        </view>
+        <view class="user" bind:tap="goUser" data-api="{{item.actor.url}}">
+          <image src="{{item.actor.avatar_url}}" class="avatar" />
+          <view style="flex: 1">
+            <view >
+              {{item.actor.login}}
+            </view>
+            <view style="color: #999999;font-size: 22rpx;">
+              update at {{item.created_at}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="loading {{loading === 'success' ? 'no-padding' : ''}}" bind:tap="reload">{{loading === 'loading' ? '加载中...' : loading === 'fail' ? '加载失败, 点击重试' : loading === 'success' ? notifications.length ? '' : '暂无数据...' : '请先登录'}}</view>
+</base>

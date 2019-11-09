@@ -1,4 +1,5 @@
 @import './libs/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+@import "/components/comi/comi.wxss";
 /**app.wxss**/
 page {
   background: #f6f6f6;

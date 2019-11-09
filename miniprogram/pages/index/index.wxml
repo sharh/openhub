@@ -1,20 +1,22 @@
 <!-- index.wxml -->
 <base class="container" dialogBottom="{{dialogBottom}}" dialog="{{dialog}}">
   <view class="tabs">
-    <view class="header">
-      <view class="tab tab-1 {{type === 'repositories' ? 'active' : ''}}" bind:tap="changeContent" data-type="repositories">
-        Repositories
-      </view>
-      <view class="tab tab-2 {{type === 'developers' ? 'active' : ''}}" bind:tap="changeContent" data-type="developers">
-        Developers
-      </view>
-    </view>
-    <view >
-      <picker class="filter" bindchange="bindPickerChange" value="{{dateIndex}}" range="{{dates}}">
-        <view class="picker">
-          <image src="/images/icons/filter.png" class="filter-icon" />Date Range: {{dates[dateIndex]}}
+    <view class="fixed">
+      <view class="header">
+        <view class="tab tab-1 {{type === 'repositories' ? 'active' : ''}}" bind:tap="changeContent" data-type="repositories">
+          Repositories
         </view>
-      </picker>
+        <view class="tab tab-2 {{type === 'developers' ? 'active' : ''}}" bind:tap="changeContent" data-type="developers">
+          Developers
+        </view>
+      </view>
+      <view >
+        <picker class="filter" bindchange="bindPickerChange" value="{{dateIndex}}" range="{{dates}}">
+          <view class="picker">
+            <image src="/images/icons/filter.png" class="filter-icon" />Date Range: {{dates[dateIndex]}}
+          </view>
+        </picker>
+      </view>
     </view>
     <view class="content">
       <!-- 仓库 -->
@@ -43,7 +45,7 @@
             {{item.language}}
           </view>
           <view class="property star" data-index="{{index}}" bind:tap="starred">
-            <image src="/images/icons/{{item.starred ? 'follow.png' : 'follow_line.png'}}" class="icon" />
+            <image src="/images/icons/{{item.starred ? 'collect.png' : 'follow_line.png'}}" class="icon" />
             {{item.totalStar}}
           </view>
           <view class="property star" data-index="{{index}}" bind:tap="fork">

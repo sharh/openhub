@@ -1,0 +1,270 @@
+/* miniprogram/pages/profile/profile.wxss */
+
+.header {
+  position: relative;
+  /* background: #24292e; */
+  height: 500rpx;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: #999999;
+
+}
+
+.avatar-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  filter: blur(10px);
+  transform: translate(-50%, -50%);
+}
+
+.user-name {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.avatar {
+  width: 150rpx;
+  height: 150rpx;
+  background: #ebebeb;
+  border-radius: 50%;
+}
+
+.activity {
+  position: absolute;
+  z-index: 3;
+  right: 50rpx;
+  top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  border-radius: 50%;
+  background: #ffffff;
+  padding: 10rpx;
+}
+
+.activity.open {
+  border-radius: 30rpx;
+}
+
+.act-icon {
+  width: 40rpx;
+  height: 40rpx;
+  display: block;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  background: #24292e;
+  padding: 6rpx;
+}
+
+.act-icon:last-child {
+  margin-bottom: 0;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #ffffff;
+}
+
+.profile-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #ffffff;
+  font-size: 24rpx;
+}
+
+.bio {
+  padding: 10rpx;
+}
+
+.footer-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10rpx;
+}
+
+.footer-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.footer-item .icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.pro-item {
+  display: flex;
+  padding: 20rpx;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.pro-item:nth-child(4n) {
+  border-bottom: 10rpx solid #CC0000;
+}
+
+.pro-item:nth-child(4n+1) {
+  border-bottom: 10rpx solid #CC00FF;
+}
+
+.pro-item:nth-child(4n+2) {
+  border-bottom: 10rpx solid #0099FF;
+}
+
+.pro-item:nth-child(4n+3) {
+  border-bottom: 10rpx solid #66FF33;
+}
+
+.icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+/* github */
+.github{
+  margin-top: 20rpx;
+}
+.git-item{
+  margin-bottom: 20rpx;
+}
+.git-item-content{
+  padding: 20rpx;
+  background: #ffffff;
+}
+.content-item{
+  margin: 10rpx 0;
+
+  border-bottom: 1px solid #ebebeb;
+}
+.git-cell{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1px solid #ebebeb;
+  background: #ffffff;
+}
+.git-icon{
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+.git-more{
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
+  margin-right: 10rpx;
+}
+.git-name{
+  flex: 1;
+}
+/* activity */
+.activities{
+  margin-top: 20rpx;
+}
+
+.act-title {
+  padding: 20rpx;
+  background: #24292e;
+  color: #fff;
+}
+
+.noti-item {
+  background: #ffffff;
+  margin-bottom: 20rpx;
+}
+
+.noti-title {
+  padding: 20rpx;
+  border-bottom: 1px solid #ebebeb;
+  font-weight: bold;
+}
+
+.noti-content {
+  padding: 20rpx;
+  color: #0366d6;
+}
+
+.noti-time {
+  color: #999999;
+  font-size: 30rpx;
+  padding: 20rpx;
+}
+
+/* organisiziton */
+.org{
+  padding: 20rpx;
+  background: #fff;
+  margin-top: 20rpx;
+  text-align:center;
+  font-weight: bold;
+  border-bottom: 1px solid #ebebeb;
+}
+.org-list{
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0 0;
+  background: #fff;
+  overflow: scroll;
+}
+.org-avatar{
+  width: 100rpx;
+  height: 100rpx;
+}
+.org-name{
+  color: #0366d6;
+  font-weight: bold;
+  display: inline-block;
+  text-align: center;
+  margin: 20rpx;
+  white-space: nowrap;
+  /* width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+  
+}
+.org-repo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 10rpx solid #f55205;
+}
+.org-repo:nth-child(6n + 1){
+  border-bottom: 10rpx solid #49f505;
+}
+.org-repo:nth-child(6n + 2){
+  border-bottom: 10rpx solid #054df5;
+}
+.org-repo:nth-child(6n + 3){
+  border-bottom: 10rpx solid #e8ec03;
+}
+.org-repo:nth-child(6n + 4){
+  border-bottom: 10rpx solid #059df5;
+}
+.org-repo:nth-child(6n + 5){
+  border-bottom: 10rpx solid #f505e1;
+}
+.org-repo:nth-child(6n){
+  border-bottom: 10rpx solid #f50525;
+}

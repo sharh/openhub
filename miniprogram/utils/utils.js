@@ -1,9 +1,9 @@
 let loginState = 0;
-
+const app =  getApp();
 function formatDate (date, time) {
   date = new Date(date);
   if (date.toString() === 'Invalid Date') {
-    date = new Date();
+    return
   }
   let y = date.getFullYear();
   let m = date.getMonth() + 1;
@@ -23,6 +23,11 @@ function setLoginState(state) {
   loginState = state
 }
 function cloudAPI (api, options = {}) {
+  if (!api) {
+    return Promise.reject({
+      message: 'Invalid URI'
+    })
+  }
   options = options || {}
   const userinfo = wx.getStorageSync('userinfo');
   let data = {
@@ -31,7 +36,9 @@ function cloudAPI (api, options = {}) {
   }
   if (userinfo && userinfo.token) {
     data.headers = data.headers || {}
-    data.headers[ 'Authorization' ] = `${userinfo.token_type || 'token'} ` + userinfo.token;
+    if (!data.headers[ 'Authorization' ]) {
+      data.headers[ 'Authorization' ] = `${userinfo.token_type || 'token'} ` + userinfo.token;
+    }
   }
   return wx.cloud.callFunction({
     // 要调用的云函数名称
@@ -42,9 +49,13 @@ function cloudAPI (api, options = {}) {
     if (result && result.statusCode) {
       if (result.statusCode == 401 && loginState != 1) {
         loginState = 1;
+        wx.removeStorageSync('userinfo');
         wx.navigateTo({
           url: '/pages/login/login'
         });
+        if (app) {
+          app.globalData.userinfo = null;
+        }
       }
       throw result.error;
     }

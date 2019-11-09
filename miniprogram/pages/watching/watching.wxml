@@ -1,0 +1,25 @@
+<!--miniprogram/pages/issues/issues.wxml-->
+<view class="activities">
+  <view class="notifications">
+    <view class="noti-item" wx:for="{{data}}" wx:key="id">
+      <view class="noti-content" bind:tap="viewRepo" data-api="{{item.url}}">{{item.full_name}}</view>
+      <view class="content" wx:if="{{item.description}}">
+        <comi content="{{item.description}}"/>
+      </view>
+      <view class="noti-time">
+        <view class="user" bind:tap="goUser" data-api="{{item.owner.url}}">
+          <image src="{{item.owner.avatar_url}}" class="avatar" />
+          <view style="flex: 1">
+            <view >
+              {{item.owner.login}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="noti-time" style="color: #999999;font-size: 22rpx;">
+        last push at {{item.pushed_at}}
+      </view>
+    </view>
+  </view>
+</view>
+<view class="loading" wx:if="{{loading}}">加载中...</view>

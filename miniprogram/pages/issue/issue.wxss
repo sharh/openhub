@@ -1,0 +1,76 @@
+/* miniprogram/pages/issue/issue.wxss */
+.issue-title{
+  color: #24292e;
+  border-bottom: 1px solid #ebebeb;
+  padding: 20rpx;
+  font-weight: bold;
+  font-size: 60rpx;
+  line-height: 1.2;
+  background: #fff;
+  
+}
+.issue{
+  background: #ffffff;
+  padding: 20rpx;
+}
+.label{
+  color: #fff;
+  margin: 5rpx;
+  border-radius: 5rpx;
+  padding: 0 10rpx;
+
+}
+.avatar{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  background: #999999;
+}
+.title{
+  font-size: 50rpx;
+  font-weight: bold;
+}
+.state{
+  padding: 0 20rpx;
+  background: #33CC33;
+  color: #ffffff;
+  border-radius: 10rpx;
+  margin-right: 10rpx;
+}
+.user{
+  color:#0366d6;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin: 0 10rpx;
+}
+.info{
+  padding: 20rpx 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #999999;
+  font-size: 30rpx;
+  word-break: break-all;
+}
+.label-info{
+  padding: 0;
+}
+.comment-info{
+  justify-content: space-between;
+}
+.content{
+  border-top: 1px solid #ebebeb;
+  padding: 20rpx;
+  background: #ffffff;
+}
+.comments{
+  margin-top: 20rpx;
+
+}
+.comment{
+  padding: 20rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}

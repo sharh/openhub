@@ -1,0 +1,74 @@
+/* miniprogram/pages/events/events.wxss */
+.activities{
+  margin-top: 20rpx;
+}
+
+.act-title {
+  padding: 20rpx;
+  background: #24292e;
+  color: #fff;
+}
+
+.noti-item {
+  background: #ffffff;
+  margin-bottom: 20rpx;
+}
+
+.noti-title {
+  padding: 20rpx;
+  border-bottom: 1px solid #ebebeb;
+  font-weight: bold;
+}
+
+.noti-content {
+  padding: 20rpx;
+  color: #222222;
+}
+
+.noti-time {
+  color: #999999;
+  font-size: 30rpx;
+  padding: 20rpx;
+}
+
+.avatar{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  background: #999999;
+}
+.user{
+  color:#0366d6;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ebebeb;
+  padding: 20rpx;
+}
+.ref,
+.change-info{
+  padding: 20rpx;
+}
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+  vertical-align: middle;
+}
+.change-info .icon{
+  margin-right: 0rpx;
+  margin-left: 30rpx;
+}
+.change-info .icon:first-child{
+  margin-left: 0;
+}
+.commit{
+  padding: 20rpx;
+  background: #ebebeb;
+}
+
+.pull-title{
+  padding: 20rpx;
+  color: #999999;
+}
