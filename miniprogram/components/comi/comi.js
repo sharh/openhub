@@ -22,7 +22,7 @@ Component ({
   },
   lifetimes: {
     attached: function attached() {
-      this.init()
+      this.data.content && this.init()
     }
   },
   methods: {

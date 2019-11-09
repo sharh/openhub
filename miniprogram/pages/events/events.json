@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    
+    "comi": "../../components/comi/comi"
   },
   "navigationBarTitleText": "Events"
 }

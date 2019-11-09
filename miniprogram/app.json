@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/search/search",
     "pages/watching/watching",
     "pages/profile/profile",
     "pages/events/events",
@@ -8,7 +9,6 @@
     "pages/issues/issues",
     "pages/issue/issue",
     "pages/login/login",
-    "pages/search/search",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -32,7 +32,6 @@
     "navigationBarTitleText": "OPEN HUB"
   },
   "usingComponents": {
-    "comi": "./components/comi/comi",
     "base": "./components/base/base"
   },
   "tabBar": {

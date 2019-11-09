@@ -1,6 +1,6 @@
 /* miniprogram/pages/repository/repository.wxss */
 /* @import "/libs/wxParse/wxParse.wxss"; */
-
+@import "/components/comi/comi.wxss";
 .repo-info{
   padding: 20rpx;
   background: #ffffff;

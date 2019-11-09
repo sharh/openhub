@@ -17,7 +17,7 @@
     <view class="footer">
       <view class="property star" wx:if="{{repo.language}}">{{repo.language}}</view>
       <view class="property star" bind:tap="starred">
-        <image src="/images/icons/{{!stared ?'collect.png' : 'follow.png'}}" class="icon" />
+        <image src="/images/icons/{{!stared ?'follow_line.png' : 'collect.png'}}" class="icon" />
         {{repo.stargazers_count}}
       </view>
       <view class="property star" bind:tap="fork">

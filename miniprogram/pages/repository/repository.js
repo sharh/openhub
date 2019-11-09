@@ -28,14 +28,17 @@ Page({
     }
   },
   checkStared () {
-    utils.cloudAPI(`https://api.github.com/user/starred/${this.data.repo.full_name}`, {
-      method: 'get'
-    }).then(({ result }) => {
-      this.setData({stared: true})
-      console.log(result)
-    }).catch((e) => {
-      console.log(e)
-    })
+    if (app.globalData.userinfo) {
+      utils.cloudAPI(`https://api.github.com/user/starred/${this.data.repo.full_name}`, {
+        method: 'get'
+      }).then(({ result }) => {
+        this.setData({stared: true})
+        console.log(result)
+      }).catch((e) => {
+        console.log(e)
+      })
+      
+    }
   },
   starred () {
     utils.cloudAPI(`https://api.github.com/user/starred/${this.data.repo.full_name}`, {
