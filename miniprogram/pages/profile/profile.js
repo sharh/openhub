@@ -35,6 +35,20 @@ Page({
       })
     }
   },
+  logout () {
+    app.globalData.userinfo = null;
+    this.data.needLogin = true;
+    wx.removeStorageSync('userinfo');
+    this.setData({
+      user: null,
+      organizations: null,
+      starred: null,
+      notifications: null
+    })
+    wx.navigateTo({
+      url: '/pages/login/login'
+    })
+  },
   init () {
     this.loading = true;
     utils.cloudAPI(this.data.api).then(({ result }) => {

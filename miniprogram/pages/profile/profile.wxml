@@ -35,6 +35,7 @@
       <image src="/images/icons/notifications.png" class="act-icon" bind:tap="actClick" data-type="notifications" wx:if="{{open}}" />
       <!-- <image src="/images/icons/star.png" class="act-icon" bind:tap="actClick" data-type="starring" wx:if="{{open}}" /> -->
       <image src="/images/icons/watching.png" class="act-icon" bind:tap="actClick" data-type="watching" wx:if="{{open}}" />
+      <image src="/images/icons/log-out.png" class="act-icon" bind:tap="logout" wx:if="{{open}}" />
     </view>
   </view>
   <view class="profile" wx:if="{{user}}">
