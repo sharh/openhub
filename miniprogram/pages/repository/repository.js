@@ -231,7 +231,7 @@ Page({
     let index = e.currentTarget.dataset.index;
     let file = this.data.tree.tree[ index ];
     if (file.type === 'blob') {
-      if (file.size > 1024 * 1024) {
+      if (file.size > 500 * 1024) {
         this.data.dialog.show = true;
         this.data.dialog.content = '当前文件内容过大，请将内容复制在浏览器打开';
         this.data.dialog.confirmText = '复制'
@@ -240,9 +240,15 @@ Page({
           dialog: this.data.dialog
         })
         return
+      } else if (/\.(jpg|jpeg|png|gif|svg|ico|bmp|webp)/i.test(file.path))  {
+        wx.previewImage({
+          current: file.url,
+          urls: [file.url]
+        });
+        return;
       }
       wx.navigateTo({
-        url: `/pages/filecontent/filecontent?api=${file.url}&name=${file.path}&size=${file.size}`
+        url: `/pages/filecontent/filecontent?api=${file.url}&name=${file.path}&size=${file.fileSize}`
       })
     } else {
       wx.showLoading({

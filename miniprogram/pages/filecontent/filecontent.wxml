@@ -4,5 +4,7 @@
     <view class="file-name">{{name}}</view>
     <view class="file-size">{{fileSize}}</view>
   </view>
-  <view class="content">{{content}}</view>
+  <view class="content">
+    <comi content="{{content}}"/>
+  </view>
 </base>

@@ -51,10 +51,10 @@
       <image class="icon" src="/images/icons/repo.png"/>
       <view class="value">{{user.public_repos}}</view>
     </view>
-    <view class="pro-item" data-type="gists_url" bind:tap="itemClick">
+    <!-- <view class="pro-item" data-type="gists_url" bind:tap="itemClick">
       <image class="icon" src="/images/icons/gists.png"/>
       <view class="value">{{user.public_gists}}</view>
-    </view>
+    </view> -->
   </view>
   <view class="github">
     <view class="git-item" wx:if="{{starred.length}}">

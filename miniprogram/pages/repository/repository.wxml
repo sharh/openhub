@@ -34,7 +34,7 @@
       </view>
     </view>
     <view class="markdown-content {{fold ? 'fold' : ''}}">
-      <comi content="{{md}}"/>
+      <comi content="{{md}}" baseUrl="{{baseUrl}}"/>
       <view class="loading" wx:if="{{loadingMd}}">加载中...</view>
     </view>
     <view class="loading" style="background: #ffffff;margin-bottom: 40rpx;border-top: 5rpx solid #0366d6;" wx:if="{{markdown && fold}}" bindtap="foldIt">展开</view>

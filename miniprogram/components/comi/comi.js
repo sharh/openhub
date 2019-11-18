@@ -18,6 +18,10 @@ Component ({
     type: {
       type: String,
       value: 'md',
+    },
+    baseUrl: {
+      type: String,
+      value: '',
     }
   },
   lifetimes: {
@@ -26,8 +30,18 @@ Component ({
     }
   },
   methods: {
+    wxParseTagATap (e) {
+      wx.setClipboardData({
+        data: e.currentTarget.dataset.src,
+        success: (result) => {
+          
+        },
+        fail: () => {},
+        complete: () => {}
+      });
+    },
     init: function() {
-      WxParse.wxParse('article', this.data.type, this.data.content, this, 5);
+      WxParse.wxParse('article', this.data.type, this.data.content, this, 5, this.data.baseUrl);
     }
   }
 });

@@ -23,7 +23,9 @@ Page({
     })
     utils.cloudAPI(this.data.api).then(({result}) => {
       wx.hideLoading()
-      result.content = Base64.decode(result.content)
+      let ext = this.data.name.split('.');
+
+      result.content = `${'```' + ext[ ext.length - 1 ]}\n${Base64.decode(result.content)}${'```'}`
       this.setData({
         ...result
       })
